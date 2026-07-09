@@ -1,34 +1,35 @@
-public class Robot {
-    private String robotName;
+public class Robot implements Fighter {
+    private String name;
     private int lifePoints;
 
-    public Robot(String robotName) {
-        this.robotName = "Robot "+ robotName;
+    public Robot(String name) {
+        this.name = "Robot " + name;
         this.lifePoints = 10;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public int getLifePoints() {
         return lifePoints;
     }
 
+    @Override
     public void setLifePoints(int lifePoints) {
         this.lifePoints = lifePoints;
     }
 
-    public String getRobotName() {
-        return robotName;
+    @Override
+    public void fire(Fighter target) {
+        target.setLifePoints(target.getLifePoints() - 2);
+        System.out.println(target.getName() + " est touché par " + this.name);
     }
 
-    public void setRobotName(String robotName) {
-        this.robotName = robotName;
-    }
-
-    public void fire(Robot robot) {
-        robot.setLifePoints(robot.getLifePoints() - 2);
-        System.out.println(robot.getRobotName()+ " est touché par "+this.robotName);
-    }
-
+    @Override
     public boolean isDead() {
-        return this.lifePoints == 0;
+        return this.lifePoints <= 0;
     }
 }

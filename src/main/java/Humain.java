@@ -1,36 +1,40 @@
-public class Humain {
+public class Humain implements Fighter {
     private String nom;
     private int lifePoints;
 
     public Humain(String nom) {
-        this.nom = nom;
+        this.nom = "Humain " + nom;
         this.lifePoints = 10;
     }
 
-    public void fire(Robot robot) {
-        double random = Math.random()*10;
-        if(random > 5) robot.setLifePoints(robot.getLifePoints() - 2);
-        else System.out.println("l'humain a raté sa cible");
-    }
-    public void fire(Humain humain) {
-        double random = Math.random()*10;
-        if(random > 5) humain.setLifePoints(humain.getLifePoints() - 2);
-        else System.out.println("l'humain a raté sa cible");
-    }
-
-    public String getNom() {
+    @Override
+    public String getName() {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
+    @Override
     public int getLifePoints() {
         return lifePoints;
     }
 
+    @Override
     public void setLifePoints(int lifePoints) {
         this.lifePoints = lifePoints;
+    }
+
+    @Override
+    public void fire(Fighter target) {
+        double random = Math.random() * 10;
+        if (random > 5) {
+            target.setLifePoints(target.getLifePoints() - 2);
+            System.out.println(target.getName() + " est touché par " + this.nom);
+        } else {
+            System.out.println(this.nom + " a raté sa cible (" + target.getName() + ")");
+        }
+    }
+
+    @Override
+    public boolean isDead() {
+        return this.lifePoints <= 0;
     }
 }
