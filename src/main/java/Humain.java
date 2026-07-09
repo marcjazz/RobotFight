@@ -27,9 +27,9 @@ public class Humain implements Fighter {
         double random = Math.random() * 10;
         if (random > 5) {
             target.setLifePoints(target.getLifePoints() - 2);
-            System.out.println(target.getName() + " est touché par " + this.nom);
+            System.out.println(ConsoleUtils.RED + "💥 " + target.getName() + " est touché par " + this.nom + ConsoleUtils.RESET);
         } else {
-            System.out.println(this.nom + " a raté sa cible (" + target.getName() + ")");
+            System.out.println(ConsoleUtils.YELLOW + "💨 " + this.nom + " a raté sa cible (" + target.getName() + ")" + ConsoleUtils.RESET);
         }
     }
 

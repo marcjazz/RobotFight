@@ -25,7 +25,7 @@ public class Robot implements Fighter {
     @Override
     public void fire(Fighter target) {
         target.setLifePoints(target.getLifePoints() - 2);
-        System.out.println(target.getName() + " est touché par " + this.name);
+        System.out.println(ConsoleUtils.RED + "💥 " + target.getName() + " est touché par " + this.name + ConsoleUtils.RESET);
     }
 
     @Override
