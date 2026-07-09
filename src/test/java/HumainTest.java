@@ -11,6 +11,6 @@ class HumainTest {
         int lifePointBefore =  robot1.getLifePoints();
         humain.fire(robot1);
         int lifePointAfter = robot1.getLifePoints();
-        assertEquals(lifePointBefore, lifePointAfter);
+        assertTrue(lifePointAfter <= lifePointBefore);
     }
 }

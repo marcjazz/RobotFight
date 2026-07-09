@@ -29,7 +29,7 @@ class RobotTest {
     }
 
     @Test
-    void getRobotName() {
-        assertEquals("Robot D2R2", robot1.getRobotName());
+    void getName() {
+        assertEquals("Robot D2R2", robot1.getName());
     }
 }
