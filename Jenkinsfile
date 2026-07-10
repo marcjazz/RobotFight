@@ -1,11 +1,9 @@
 pipeline {
     agent any
 
-    // Remarque : Si la commande 'mvn' n'est pas reconnue, il faudra décommenter
-    // le bloc 'tools' ci-dessous et utiliser le nom donné à Maven dans "Global Tool Configuration"
-    // tools {
-    //     maven 'M3' 
-    // }
+    tools {
+        maven 'Maven3'
+    }
 
     stages {
         stage('Checkout') {
