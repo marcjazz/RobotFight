@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # -----------------------------------------------------------
+  # 1. Jenkins Master (TP1 à TP9)
+  # -----------------------------------------------------------
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      # Facultatif : montage pour utiliser Docker depuis l'intérieur de Jenkins
+      # - /var/run/docker.sock:/var/run/docker.sock
+
+  # -----------------------------------------------------------
+  # 2. SonarQube (TP4)
+  # -----------------------------------------------------------
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_FORCEAUTHENTICATION=false
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+
+  # -----------------------------------------------------------
+  # 3. Tomcat (TP6)
+  # -----------------------------------------------------------
+  tomcat:
+    # On utilise l'image customisée (webapps restaurées + IP restriction levée)
+    build: 
+      context: ./tomcat-setup
+      dockerfile: Dockerfile
+    container_name: tomcat
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+
+  # -----------------------------------------------------------
+  # 4. Jenkins SSH Agent (TP8)
+  # -----------------------------------------------------------
+  jenkins-agent:
+    image: jenkins/ssh-agent
+    container_name: jenkins-agent
+    restart: unless-stopped
+    ports:
+      - "2222:22"
+    environment:
+      # Clé publique générée lors du TP8
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIFYHE2sfV5QUhwUZq6hzrEFjW1jfYieq6Vm7m+LL4FT marco@marco-ThinkPad-X13-Gen-1
+
+volumes:
+  jenkins_home:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:

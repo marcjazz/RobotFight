@@ -1,0 +1,4 @@
+<tomcat-users>
+  <role rolename="manager-script"/>
+  <user username="jenkins" password="jenkins_password" roles="manager-script"/>
+</tomcat-users>
